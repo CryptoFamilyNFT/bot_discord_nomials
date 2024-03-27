@@ -1,6 +1,6 @@
 const fetch = require('node-fetch');
 const { openseaAssetUrl } = require('../config.json');
-const { contractAddress, ABI } = require('../config.json');
+const { contractAddress, ABI721 } = require('../config.json');
 const axios = require("axios");
 const { Client, Intents } = require('discord.js');
 const Discord = require('discord.js');
@@ -19,11 +19,11 @@ module.exports = {
 			return message.channel.send(`Token id must be a number!`);
 		}
 
-		const provider = new ethers.providers.JsonRpcProvider("https://arbitrum-mainnet.infura.io/v3/95785e3b0d9a4434b3e2d1127bd15fbc");
-		const contract = new ethers.Contract('0x35029F03602454A6149b353dd8d227c4f2D99B7c', ABI, provider);
+		const provider = new ethers.providers.JsonRpcProvider("https://polygon-rpc.com");
+        const contract = new ethers.Contract('0x034d89CD11a548fc4E4D7C365B0460fa6895De67', ABI721, provider);
 
 		const tokenId = Number(args[0]);
-        console.log(tokenId)
+        console.log("tokenId: ", tokenId)
 
         async function getImageUrl(tokenId) {
             try {
@@ -53,7 +53,7 @@ module.exports = {
 
 			const embedMsg = new Discord.MessageEmbed()
 				.setColor('#0099ff')
-				.setTitle(`Divitrend Factories ${tokenId}`)
+				.setTitle(`Polynomials ${tokenId}`)
 				.setURL(imageUrl)
 				.addField("Owner: ", ownerAddress)
 				.setImage(imageUrl);
